@@ -90,7 +90,17 @@ function create_mail(mail){
       const subject = document.createElement('div')
       subject.innerHTML = `<strong>Subject: </strong> ${mail.subject}`
       document.querySelector('#mail-view').append(subject)
-      
+      const timestamp = document.createElement('div')
+      timestamp.innerHTML = `<strong>Timestamp: </strong> ${mail.timestamp}`
+      document.querySelector('#mail-view').append(timestamp)
+      const ul = document.createElement('ul')
+      document.querySelector('#mail-view').append(ul)
+      const recipients = mail.recipients
+      recipients.forEach(item => {
+        const li = document.createElement('li')
+        li.innerHTML = item
+        document.querySelector('ul').append(li)
+       })
     })
   }
   document.querySelector('#emails-view').append(mail_div)
