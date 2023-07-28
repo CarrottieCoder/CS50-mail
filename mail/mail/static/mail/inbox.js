@@ -75,21 +75,22 @@ function create_mail(mail){
   }
 
   mail_div.onclick = () =>{
+    
     document.querySelector('#emails-view').style.display = 'none';
     document.querySelector('#compose-view').style.display = 'none';
     document.querySelector('#mail-view').style.display = 'block';
+    document.querySelector('#mail-view').innerHTML = '';
 
     fetch(`/emails/${mail.id}`)
     .then(response => response.json())
     .then(mail => {
-      const sender = document.createElement('p')
-      sender.innerHTML = `<strong>From: </strong>${mail.sender}`
-      const recipients = document.createElement('p')
-      mail.recipients.forEach(recipient =>{
-        recipients.innerHTML += `${recipient}; `
-      })
-      document.querySelector('#emails-view').append(recipients)
-      document.querySelector('#emails-view').append(sender)
+      const sender = document.createElement('div')
+      sender.innerHTML = `<strong>From: </strong> ${mail.sender}`
+      document.querySelector('#mail-view').append(sender)
+      const subject = document.createElement('div')
+      subject.innerHTML = `<strong>Subject: </strong> ${mail.subject}`
+      document.querySelector('#mail-view').append(subject)
+      
     })
   }
   document.querySelector('#emails-view').append(mail_div)
