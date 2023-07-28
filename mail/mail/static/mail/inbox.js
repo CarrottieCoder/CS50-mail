@@ -1,5 +1,5 @@
 // Link to documentation: https://cs50.harvard.edu/web/2020/projects/3/mail/
-
+// Branches: Main, post-emails
 document.addEventListener('DOMContentLoaded', function() {
 
   // Use buttons to toggle between views
@@ -7,9 +7,27 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);
-
+  
   // By default, load the inbox
   load_mailbox('inbox');
+
+  const form = document.querySelector('#compose-form')
+  form.onsubmit = () =>{
+    fetch('/emails', {
+      method: 'POST',
+      body: JSON.stringify({
+          recipients: document.querySelector('#compose-recipients'),
+          subject: document.querySelector('#compose-subject'),
+          body: document.querySelector('#compose-body')
+      })
+    })
+    .then(response => response.json())
+    .then(result => {
+        // Print result
+        console.log(result);
+    });
+  }
+
 });
 
 function compose_email() {
