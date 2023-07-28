@@ -19,8 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
           recipients: document.querySelector('#compose-recipients').value,
           subject: document.querySelector('#compose-subject').value,
           body: document.querySelector('#compose-body').value
-          
-          
       })
     })
     .then(response => response.json())
@@ -54,11 +52,11 @@ function load_mailbox(mailbox) {
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
 }
 
-function getCurrentTime(){
-  const d = new Date();
-  const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
-  return `${monthNames[d.getMonth()]} ${d.getDate()}, ${d.getHours()}:${d.getMinutes()}`
-}
+// function getCurrentTime(){
+//   const d = new Date();
+//   const monthNames = [
+//     'January', 'February', 'March', 'April', 'May', 'June',
+//     'July', 'August', 'September', 'October', 'November', 'December'
+//   ];
+//   return `${monthNames[d.getMonth()]} ${d.getDate()}, ${d.getHours()}:${d.getMinutes()}`
+// }
