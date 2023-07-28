@@ -1,3 +1,5 @@
+// Link to documentation: https://cs50.harvard.edu/web/2020/projects/3/mail/
+
 document.addEventListener('DOMContentLoaded', function() {
 
   // Use buttons to toggle between views
