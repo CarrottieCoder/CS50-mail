@@ -84,15 +84,31 @@ function create_mail(mail){
     fetch(`/emails/${mail.id}`)
     .then(response => response.json())
     .then(mail => {
+
+      //Sender
+
       const sender = document.createElement('div')
       sender.innerHTML = `<strong>From: </strong> ${mail.sender}`
       document.querySelector('#mail-view').append(sender)
+      
+      //Subject
+
       const subject = document.createElement('div')
       subject.innerHTML = `<strong>Subject: </strong> ${mail.subject}`
       document.querySelector('#mail-view').append(subject)
+
+      //Timestamp
+
       const timestamp = document.createElement('div')
       timestamp.innerHTML = `<strong>Timestamp: </strong> ${mail.timestamp}`
       document.querySelector('#mail-view').append(timestamp)
+
+      //Recipients
+
+      const recipients_span = document.createElement('span')
+      recipients_span.innerHTML = "<strong>Recipients: </strong>"
+      document.querySelector('#mail-view').append(recipients_span)
+
       const ul = document.createElement('ul')
       document.querySelector('#mail-view').append(ul)
       const recipients = mail.recipients
@@ -101,6 +117,11 @@ function create_mail(mail){
         li.innerHTML = item
         document.querySelector('ul').append(li)
        })
+
+       // Line
+
+       
+
     })
   }
   document.querySelector('#emails-view').append(mail_div)
