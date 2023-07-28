@@ -81,7 +81,16 @@ function create_mail(mail){
 
     fetch(`/emails/${mail.id}`)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(mail => {
+      const sender = document.createElement('p')
+      sender.innerHTML = `<strong>From: </strong>${mail.sender}`
+      const recipients = document.createElement('p')
+      mail.recipients.forEach(recipient =>{
+        recipients.innerHTML += `${recipient}; `
+      })
+      document.querySelector('#emails-view').append(recipients)
+      document.querySelector('#emails-view').append(sender)
+    })
   }
   document.querySelector('#emails-view').append(mail_div)
 }
