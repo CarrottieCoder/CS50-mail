@@ -1,6 +1,10 @@
 {% extends "mail/layout.html" %}
 {% load static %}
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'mail/styles.css' %}">
+{% endblock head}
+
 {% block body %}
     <h2>{{ request.user.email }}</h2>
 
