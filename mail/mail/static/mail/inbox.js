@@ -69,9 +69,19 @@ function load_mailbox(mailbox) {
 function create_mail(mail){
   const mail_div = document.createElement('div')
   mail_div.className = 'mail-div'
-  mail_div.innerHTML = `<strong>${mail.sender}</strong>        ${mail.subject}  <span id='date'>${mail.timestamp}</span>`
+  mail_div.innerHTML = `<strong>${mail.sender}</strong>  ${mail.subject}  <span id='date'>${mail.timestamp}</span>`
   if (mail.read == true){
     mail_div.style.background = '#dbdbdb'
+  }
+
+  mail_div.onclick = () =>{
+    document.querySelector('#emails-view').style.display = 'none';
+    document.querySelector('#compose-view').style.display = 'none';
+    document.querySelector('#mail-view').style.display = 'block';
+
+    fetch(`/emails/${mail.id}`)
+    .then(response => response.json())
+    .then(data => console.log(data))
   }
   document.querySelector('#emails-view').append(mail_div)
 }
