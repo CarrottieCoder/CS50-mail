@@ -75,7 +75,7 @@ function create_mail(mail){
   }
 
   mail_div.onclick = () =>{
-    
+    //Create mail_view
     document.querySelector('#emails-view').style.display = 'none';
     document.querySelector('#compose-view').style.display = 'none';
     document.querySelector('#mail-view').style.display = 'block';
@@ -85,25 +85,25 @@ function create_mail(mail){
     .then(response => response.json())
     .then(mail => {
 
-      //Sender
+      // Sender
 
       const sender = document.createElement('div')
       sender.innerHTML = `<strong>From: </strong> ${mail.sender}`
       document.querySelector('#mail-view').append(sender)
       
-      //Subject
+      // Subject
 
       const subject = document.createElement('div')
       subject.innerHTML = `<strong>Subject: </strong> ${mail.subject}`
       document.querySelector('#mail-view').append(subject)
 
-      //Timestamp
+      // Timestamp
 
       const timestamp = document.createElement('div')
       timestamp.innerHTML = `<strong>Timestamp: </strong> ${mail.timestamp}`
       document.querySelector('#mail-view').append(timestamp)
 
-      //Recipients
+      // Recipients
 
       const recipients_span = document.createElement('span')
       recipients_span.innerHTML = "<strong>Recipients: </strong>"
@@ -118,9 +118,37 @@ function create_mail(mail){
         document.querySelector('ul').append(li)
        })
 
+       // Reply
+
+       const reply = document.createElement('button')
+       reply.innerHTML = 'Reply'
+       reply.className = "btn btn-sm btn-outline-primary"
+       document.querySelector('#mail-view').append(reply)
+
        // Line
 
-       
+       const hr = document.createElement('hr')
+       document.querySelector('#mail-view') .append(hr)
+
+       // Body 
+
+       const body = document.createElement('div')
+       body.innerHTML = `${mail.body}`
+       document.querySelector('#mail-view').append(body)
+
+      fetch(`/emails/${mail.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            read: true,
+        })
+      })
+      .then(response => response.json())
+      .then(result => {
+          // Print result
+          console.log(result);
+      });
+      
+      
 
     })
   }
