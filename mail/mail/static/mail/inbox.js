@@ -68,6 +68,9 @@ function create_mail(mail){
   const mail_div = document.createElement('div')
   mail_div.className = 'mail-div'
   mail_div.innerHTML = `<strong>${mail.sender}</strong>        ${mail.subject}  <span id='date'>${mail.timestamp}</span>`
+  if (mail.read == true){
+    mail_div.style.background = '#dbdbdb'
+  }
   document.querySelector('#emails-view').append(mail_div)
 }
 
