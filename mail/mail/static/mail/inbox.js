@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(result => {
         // Print result
         console.log(result);
+    })
+    .catch(error => {
+      console.error("Fetch error:", error);
     });
   }
 
