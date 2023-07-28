@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
           subject: document.querySelector('#compose-subject').value,
           body: document.querySelector('#compose-body').value
           
+          
       })
     })
     .then(response => response.json())
