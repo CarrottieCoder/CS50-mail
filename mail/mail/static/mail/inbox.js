@@ -56,7 +56,19 @@ function load_mailbox(mailbox) {
 
   fetch(`/emails/${mailbox}`)
   .then(response => response.json())
-  .then(data => console.log(data))
+  .then(mail => 
+    {
+      mail.forEach(mail => {
+        create_mail(mail)
+      });
+    })
+}
+
+function create_mail(mail){
+  const mail_div = document.createElement('div')
+  mail_div.className = 'mail-div'
+  mail_div.innerHTML = `${mail.sender}  ${mail.subject} <span id='date'>${mail.timestamp}</span>`
+  document.querySelector('#emails-view').append(mail_div)
 }
 
 // function getCurrentTime(){
