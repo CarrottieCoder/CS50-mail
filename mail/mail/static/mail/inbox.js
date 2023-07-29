@@ -69,7 +69,7 @@ function load_mailbox(mailbox) {
 function create_mail(mail){
   const mail_div = document.createElement('div')
   mail_div.className = 'mail-div'
-  mail_div.innerHTML = `<strong>${mail.sender}</strong>  ${mail.subject}  <span id='date'>${mail.timestamp}</span>`
+  mail_div.innerHTML = `<strong>${mail.sender}</strong>  ${mail.subject}  <span id='date'>${mail.timestamp} </span>`
   if (mail.read == true){
     mail_div.style.background = '#dbdbdb'
   }
@@ -84,6 +84,13 @@ function create_mail(mail){
     fetch(`/emails/${mail.id}`)
     .then(response => response.json())
     .then(mail => {
+
+      document.addEventListener('click', event =>{
+          if (event.target.id == 'reply_button'){
+            reply_mail(mail)
+          }
+      })
+      
 
       // Sender
 
@@ -122,6 +129,7 @@ function create_mail(mail){
 
        const reply = document.createElement('button')
        reply.innerHTML = 'Reply'
+       reply.id = 'reply_button'
        reply.className = "btn btn-sm btn-outline-primary"
        document.querySelector('#mail-view').append(reply)
 
@@ -153,6 +161,20 @@ function create_mail(mail){
     })
   }
   document.querySelector('#emails-view').append(mail_div)
+}
+
+
+
+function reply_mail(mail){
+    // Show compose view and hide other views
+    document.querySelector('#emails-view').style.display = 'none';
+    document.querySelector('#compose-view').style.display = 'block';
+    document.querySelector('#mail-view').style.display = 'none';
+  
+    // Clear out composition fields
+    document.querySelector('#compose-recipients').value = mail.recipients;
+    document.querySelector('#compose-subject').value = `Re: ${mail.subject}`;
+    document.querySelector('#compose-body').value = `On ${mail.timestamp} ${mail.sender} wrote: \n${mail.body}`;
 }
 
 // function getCurrentTime(){
