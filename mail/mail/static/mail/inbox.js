@@ -160,6 +160,16 @@ function create_mail(mail){
 
     })
   }
+
+  //Create archive button
+  const archive = document.createElement('button')
+  archive.innerHTML = "Archive"
+  archive.id = 'archive_button'
+  archive.className = "btn btn-outline-secondary btn-sm"
+  archive.style.marginTop = "5px;"
+  archive.style.marginRight = "100%"
+  mail_div.append(archive)
+
   document.querySelector('#emails-view').append(mail_div)
 }
 
