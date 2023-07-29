@@ -200,7 +200,11 @@ function reply_mail(mail){
   
     // Clear out composition fields
     document.querySelector('#compose-recipients').value = mail.recipients;
-    document.querySelector('#compose-subject').value = `Re: ${mail.subject}`;
+    if (!mail.subject.includes("Re: ")){
+      document.querySelector('#compose-subject').value = `Re: ${mail.subject}`;
+    } else {
+      document.querySelector('#compose-subject').value = `${mail.subject}`;
+    }
     document.querySelector('#compose-body').value = `On ${mail.timestamp} ${mail.sender} wrote: \n${mail.body}`;
 }
 
