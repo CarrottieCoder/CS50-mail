@@ -198,12 +198,12 @@ function reply_mail(mail){
     document.querySelector('#compose-view').style.display = 'block';
     document.querySelector('#mail-view').style.display = 'none';
   
-    // Clear out composition fields
-    document.querySelector('#compose-recipients').value = mail.recipients;
+    // Populate the fields
+    document.querySelector('#compose-recipients').value = mail.sender;
     if (!mail.subject.includes("Re: ")){
       document.querySelector('#compose-subject').value = `Re: ${mail.subject}`;
     } else {
-      document.querySelector('#compose-subject').value = `${mail.subject}`;
+      document.querySelector('#compose-subject').value = `Re: ${mail.subject}`;
     }
     document.querySelector('#compose-body').value = `On ${mail.timestamp} ${mail.sender} wrote: \n${mail.body}`;
 }
