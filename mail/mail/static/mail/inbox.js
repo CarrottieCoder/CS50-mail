@@ -61,12 +61,12 @@ function load_mailbox(mailbox) {
   .then(mail => 
     {
       mail.forEach(mail => {
-        create_mail(mail)
+        create_mail(mail, mailbox)
       });
     })
 }
 
-function create_mail(mail){
+function create_mail(mail, mailbox){
   const mail_div = document.createElement('div')
   mail_div.className = 'mail-div'
   mail_div.innerHTML = `<strong>${mail.sender}</strong>  ${mail.subject}  <span id='date'>${mail.timestamp} </span>`
@@ -162,14 +162,31 @@ function create_mail(mail){
   }
 
   //Create archive button
-  const archive = document.createElement('button')
-  archive.innerHTML = "Archive"
-  archive.id = 'archive_button'
-  archive.className = "btn btn-outline-secondary btn-sm"
-  archive.style.marginTop = "5px;"
-  archive.style.marginRight = "100%"
-  mail_div.append(archive)
+  if (mailbox != "sent"){
+    const archive = document.createElement('button')
+    if (mailbox == "inbox"){
+      archive.innerHTML = "Archive"
+    }
+    else{
+      archive.innerHTML = "Unarchive"
+    }
+    archive.id = 'archive_button'
+    archive.className = "btn btn-outline-secondary btn-sm"
+    archive.style.marginTop = "5px;"
+    archive.style.marginRight = "100%"
 
+    archive.onclick = function (event) {
+      fetch(`/emails/${mail.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            "archived": !mail.archived,
+        })
+      })
+      .then(data => load_mailbox("inbox"))
+      event.stopPropagation(); // Prevent the event from bubbling up to the parentButton
+    };
+    mail_div.append(archive)
+  }
   document.querySelector('#emails-view').append(mail_div)
 }
 
@@ -186,6 +203,7 @@ function reply_mail(mail){
     document.querySelector('#compose-subject').value = `Re: ${mail.subject}`;
     document.querySelector('#compose-body').value = `On ${mail.timestamp} ${mail.sender} wrote: \n${mail.body}`;
 }
+
 
 // function getCurrentTime(){
 //   const d = new Date();
